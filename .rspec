@@ -1,0 +1,3 @@
+--color
+--default_path '.'
+--pattern "{spec,lib}/**/*_spec.rb"
