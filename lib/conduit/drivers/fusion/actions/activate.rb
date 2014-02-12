@@ -1,12 +1,9 @@
-module Conduit::Driver::Fusion
-  class Activate < Conduit::Core::Action
+module Conduit::Driver
+  class Fusion::Activate < Conduit::Core::Action
 
     remote_url 'http://72.5.22.217/perl/xml/gateway.cgi'
-
-    required_attributes :clec_id, :username, :token, :plan_id, :esn, :first_name,
-      :last_name, :city, :state, :zip, :address1, :address2
-
-    optional_attributes :originatingControlNumber, :originatingClientId, :originatingOrderId
+    required_attributes *Conduit::Driver::Fusion.credentials, :plan_id, :esn,
+      :first_name, :last_name, :city, :state, :zip, :address1, :address2
 
     # Required entry method, the main driver
     # class will use this to trigger the
