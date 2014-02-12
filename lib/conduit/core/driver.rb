@@ -3,11 +3,14 @@
 # actions belonging to this driver
 #
 # e.g.
-# => module Conduit
-# =>   module Driver
-# =>     class MyDriver
-# =>       extend Conduit::Core::Driver
-# =>     end
+# => module Conduit::Driver
+# =>   class MyDriver < Conduit::Core::Driver
+# =>     required_credentials :foo, :bar, :baz
+# =>
+# =>     action :purchase
+# =>     action :activate
+# =>     action :suspend
+# =>
 # =>   end
 # => end
 #
@@ -16,48 +19,66 @@ module Conduit
   module Core
     module Driver
 
-      # When this module is extended
-      # it will search for, and require
-      # the action files
-      #
-      def self.extended(base)
-        base.send :path, path_for(caller, 'actions')
-        base.send :path, path_for(caller, 'parsers')
-      end
-
-      # Set a default action path based on the
-      # callers location. Can be overriden
-      # using path 'path/to/folder'.
-      #
-      def self.path_for(kaller, dir)
-        f = kaller.first.split(':').first
-        File.join(File.dirname(f), dir)
-      end
-
-      # Require all action classes
+      # Set required credentials
       #
       # e.g.
-      # => path File.join(File.dirname(__FILE__), 'actions')
+      # => required_credentials :foo, :bar, :baz
       #
-      def path(p)
-        Dir["#{p}/*.rb"].each do |f|
-          require f
-          action f if p =~ /actions/
-        end if Dir.exists?(p)
+      def required_credentials(*args)
+        credentials.concat(args)
       end
 
-      # Storage array of available actions
+      # Set available actions
+      #
+      # e.g.
+      # => action :purchase
+      #
+      def action(action_name)
+        require File.join(driver_path, 'actions', action_name.to_s)
+        actions << action_name
+      end
+
+      # Storage array for required credentials
+      #
+      # e.g.
+      # Conduit::Driver::Fusion.credentials
+      # => [:foo, :bar, :baz]
+      #
+      def credentials
+        @credentials ||= []
+      end
+
+      # Storage array for required credentials
+      #
+      # e.g.
+      # Conduit::Driver::Fusion.actions
+      # => [:purchase]
       #
       def actions
         @actions ||= []
       end
 
-      # Store the actions in an array
-      #
-      def action(f)
-        (actions << File.basename(f, ".*")
-          .underscore).uniq
-      end
+      private
+
+        # Return the name of the driver
+        #
+        # e.g.
+        # Conduit::Drivers::Fusion.name
+        # => "fusion"
+        #
+        def driver_name
+          self.name.demodulize.downcase
+        end
+
+        # Return the path to the driver
+        #
+        # e.g.
+        # Conduit::Drivers::Fusion.path
+        # => "/Users/mike/Projects/BeQuick/conduit/lib/conduit/drivers/fusion"
+        #
+        def driver_path
+          File.join(Conduit::Configuration.driver_path, driver_name)
+        end
 
     end
   end

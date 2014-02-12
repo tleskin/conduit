@@ -4,15 +4,16 @@ describe Conduit::Response do
 
   let(:attributes) do
     {
-      required_foo: 'foo',
-      required_bar: 'bar',
-      optional_foo: 'foo2',
-      optional_bar: 'bar2'
+      clec_id:  'foo',
+      username: 'bar',
+      token:    'foo2',
+      mdn:      'bar2',
+      plan_id:  1
     }
   end
 
   before do
-    @request  = Conduit::Request.create(driver: :example,
+    @request  = Conduit::Request.create(driver: :fusion,
       action: :purchase, options: attributes)
     @response = @request.responses.first
   end

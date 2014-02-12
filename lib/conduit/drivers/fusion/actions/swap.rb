@@ -1,11 +1,8 @@
-module Conduit::Driver::Fusion
-  class Swap < Conduit::Core::Action
+module Conduit::Driver
+  class Fusion::Swap < Conduit::Core::Action
 
     remote_url 'http://72.5.22.217/perl/xml/gateway.cgi'
-
-    required_attributes :clec_id, :username, :token, :mdn
-
-    optional_attributes :originatingControlNumber, :originatingClientId, :originatingOrderId
+    required_attributes *Conduit::Driver::Fusion.credentials, :mdn
 
     # Required entry method, the main driver
     # class will use this to trigger the
