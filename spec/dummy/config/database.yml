@@ -1,0 +1,20 @@
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: conduit_development
+  username: root
+  password:
+
+test:
+  adapter: mysql2
+  encoding: utf8
+  database: conduit_test
+  username: root
+  password:
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  database: conduit_production
+  username: root
+  password:
