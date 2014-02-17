@@ -1,3 +1,4 @@
+require 'conduit/acts_as_requestable'
 require 'conduit/core/connection'
 require 'conduit/configuration'
 require 'conduit/core/driver'
