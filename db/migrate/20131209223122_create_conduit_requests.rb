@@ -5,6 +5,7 @@ class CreateConduitRequests < ActiveRecord::Migration
       t.string  :action
       t.text    :options
       t.string  :file
+      t.string  :status
       t.string  :requestable_type
       t.integer :requestable_id
 
