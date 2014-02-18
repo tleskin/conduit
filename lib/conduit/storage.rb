@@ -5,67 +5,33 @@
 # TODO: Support multiple storage providers
 #
 
-require 'aws-sdk'
+require 'conduit/storage/aws'
+require 'conduit/storage/file'
 
 module Conduit
   module Storage
-    extend ActiveSupport::Rescuable
 
-    # Primary connection object to AWS::S3
-    #
-    # Configurable in:
-    # config/initializers/conduit.rb
-    # TODO: Update how conduit gets
-    # the credentials for s3
-    #
-    def self.connection
-      @connection ||= AWS::S3.new(access_key_id: Configuration.storage_credentials[:aws_access_key_id],
-        secret_access_key: Configuration.storage_credentials[:aws_access_secret])
-    end
-
-    # Bucket we want to work with
+    # Wrapper around the configuration object
     #
     # Configurable in:
     # config/initializers/conduit.rb
     #
-    def self.bucket
-      @bucket ||= begin
-        bucket = Configuration.storage_credentials[:bucket]
-        connection.buckets.create(bucket) unless connection.buckets[bucket].exists?
-        connection.buckets[bucket]
-      end
+    def self.config
+      Configuration.storage_config
     end
 
-    # Write a file to AWS::S3
+    # Get the name of the chosen provider
+    # from the configuration
     #
-    # e.g.
-    # => Conduit::Storage.write('/path/to/file', 'foo')
-    #
-    def self.write(key, content)
-      bucket.objects[key].write(content)
+    def self.provider
+      Configuration.storage_config[:provider]
     end
 
-    # Read a file from AWS::S3
+    # Load in the functionality for the storage provider
+    # that was selected via the configuration
     #
-    # e.g.
-    # => Conduit::Storage.read('/path/to/file')
-    #
-    def self.read(key)
-      bucket.objects[key].read
-    rescue AWS::S3::Errors::NoSuchKey
-      nil
-    end
-
-    # Delete a file from AWS::S3
-    #
-    # e.g.
-    # => Conduit::Storage.delete('/path/to/file')
-    #
-    def self.delete(key)
-      bucket.objects[key].delete
-    rescue AWS::S3::Errors::NoSuchKey
-      nil
-    end
+    storage_provider_module = const_get(provider.to_s.humanize)
+    extend storage_provider_module
 
   end
 end

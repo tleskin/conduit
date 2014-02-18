@@ -1,20 +1,28 @@
-require 'conduit/acts_as_requestable'
-require 'conduit/core/connection'
-require 'conduit/configuration'
-require 'conduit/core/driver'
-require 'conduit/core/action'
-require 'conduit/core/render'
-require 'conduit/storage'
 require 'conduit/engine'
-require 'conduit/util'
 
 module Conduit
 
-  class << self
+  mattr_accessor :app_root
 
-    def configure(&block)
-      Configuration.configure(&block)
-    end
+  # Autoload the Conduit base classes
+  # NOTE: Autoloading should be
+  #       concurrency-safe
+  #
+  autoload :ActsAsRequestable, 'conduit/acts_as_requestable'
+  autoload :Configuration,     'conduit/configuration'
+  autoload :Storage,           'conduit/storage'
+  autoload :Util,              'conduit/util'
+
+  module Core
+
+    # Autoload the Conduit::Core base classes
+    # NOTE: Autoloading should be
+    #       concurrency-safe
+    #
+    autoload :Connection, 'conduit/core/connection'
+    autoload :Driver,     'conduit/core/driver'
+    autoload :Action,     'conduit/core/action'
+    autoload :Render,     'conduit/core/render'
 
   end
 
@@ -39,4 +47,12 @@ module Conduit
     end
 
   end
+
+  # Load the main application configuration if
+  # none is provided, we load sane defaults
+  #
+  def self.configure(&block)
+    Configuration.configure(&block)
+  end
+
 end

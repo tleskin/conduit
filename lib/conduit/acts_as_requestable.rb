@@ -21,15 +21,15 @@ module Conduit
     #
     module LocalInstanceMethods
 
-      delegate :status, to: :current_conduit_request, prefix: true, allow_nil: true
-      delegate :action, to: :current_conduit_request, prefix: true, allow_nil: true
+      delegate :status, to: :last_conduit_request, prefix: true, allow_nil: true
+      delegate :action, to: :last_conduit_request, prefix: true, allow_nil: true
 
       # Return a reference to the most recent
       # conduit request
       #
       # TODO: Update for efficiency if needed
       #
-      def current_conduit_request
+      def last_conduit_request
         conduit_requests.order(:created_at)
           .limit(1).first
       end
