@@ -11,11 +11,15 @@ module Conduit
       # Storage
       #
 
-      # Define the storage type, and credentials
-      # Supported storage types: AWS(S3)
+      # Define the storage configuration. This could
+      # include anything from file paths, to
+      # service credentials, and provider
       #
-      mattr_accessor :storage_credentials
-      self.storage_credentials = {}
+      mattr_accessor :storage_config
+      self.storage_config = {
+        provider:   :file,
+        file_path:  Conduit.app_root.join('tmp', 'conduit')
+      }
 
       #
       # Drivers

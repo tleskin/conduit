@@ -7,5 +7,10 @@ module Conduit
       g.assets false
       g.helper false
     end
+
+    initializer "conduit.load_app_root", before: :load_config_initializers do |app|
+      Conduit.app_root = app.root
+    end
+
   end
 end

@@ -22,7 +22,6 @@ RSpec.configure do |config|
   config.before(:all) do
     Excon.defaults[:mock] = true
     Excon.stub({}, body: 'foo', status: 200)
-    AWS.stub!
   end
 
   config.before(:suite) do

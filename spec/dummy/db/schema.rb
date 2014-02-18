@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131209223734) do
+ActiveRecord::Schema.define(version: 20140218214960) do
 
   create_table "conduit_requests", force: true do |t|
     t.string   "driver"
     t.string   "action"
     t.text     "options"
     t.string   "file"
+    t.string   "status"
     t.string   "requestable_type"
     t.integer  "requestable_id"
     t.datetime "created_at"
