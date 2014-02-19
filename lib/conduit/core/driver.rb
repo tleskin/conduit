@@ -35,6 +35,7 @@ module Conduit
       #
       def action(action_name)
         require File.join(driver_path, 'actions', action_name.to_s)
+        require File.join(driver_path, 'parsers', action_name.to_s)
         actions << action_name
       end
 

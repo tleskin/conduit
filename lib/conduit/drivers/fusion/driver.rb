@@ -1,5 +1,5 @@
 module Conduit::Driver
-  class Fusion
+  module Fusion
     extend Conduit::Core::Driver
 
     required_credentials :clec_id, :username, :token

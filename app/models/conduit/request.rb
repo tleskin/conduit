@@ -16,7 +16,9 @@ module Conduit
 
     # Hooks
 
-    after_create :perform_request, prepend: true
+    after_initialize  :set_defaults
+    after_create      :perform_request, prepend: true
+    after_update      :update_requestable
 
     # Methods
 
@@ -29,6 +31,12 @@ module Conduit
     end
 
     private
+
+      # Set some default values
+      #
+      def set_defaults
+        self.status ||= "pending"
+      end
 
       # Generate a unique storage key
       # TODO: Dynamic File Format
@@ -45,6 +53,21 @@ module Conduit
         if response = raw.perform
           responses.create(content: response.body)
         end
+      end
+
+      # Notify the requestable that our status
+      # has changed. This is done by calling
+      # a predefined method name on the
+      # requestable instance
+      #
+      # NOTE: This could probably be better
+      #       handled by observers, or a
+      #       custom callback.
+      #
+      def update_requestable
+        last_response = responses.last
+        requestable.after_conduit_update(
+          last_response.parsed_content) if requestable
       end
 
       # Raw access to the action instance

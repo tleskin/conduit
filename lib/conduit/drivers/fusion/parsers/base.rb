@@ -45,6 +45,15 @@ module Conduit::Driver::Fusion
         end
       end
 
+      # Return "success/failure". This gets
+      # returned to the request object
+      # as a type of notification
+      #
+      #
+      def action_response_status
+        status
+      end
+
       private
 
         # Return a Nokogiri::XML object

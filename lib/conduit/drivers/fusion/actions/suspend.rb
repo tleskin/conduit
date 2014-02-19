@@ -1,5 +1,5 @@
-module Conduit::Driver
-  class Fusion::Suspend < Conduit::Core::Action
+module Conduit::Driver::Fusion
+  class Suspend < Conduit::Core::Action
 
     remote_url 'http://72.5.22.217/perl/xml/gateway.cgi'
     required_attributes *Conduit::Driver::Fusion.credentials, :mdn

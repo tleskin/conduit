@@ -1,4 +1,5 @@
 require 'conduit/engine'
+require 'conduit/acts_as_requestable'
 
 module Conduit
 
@@ -8,7 +9,6 @@ module Conduit
   # NOTE: Autoloading should be
   #       concurrency-safe
   #
-  autoload :ActsAsRequestable, 'conduit/acts_as_requestable'
   autoload :Configuration,     'conduit/configuration'
   autoload :Storage,           'conduit/storage'
   autoload :Util,              'conduit/util'

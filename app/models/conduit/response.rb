@@ -10,9 +10,19 @@ module Conduit
 
     validates :request, presence: true
 
+    # Hooks
+
+    after_create :report_action_status
+
     # Methods
 
     delegate :driver, :action, to: :request
+
+    # Raw access to the parser instance
+    #
+    def parsed_content
+      @parsed_content ||= Conduit::Util.find_driver(driver, action, 'parser').new(content)
+    end
 
     private
 
@@ -20,14 +30,20 @@ module Conduit
       # TODO: Dynamic File Format
       #
       def generate_storage_path
-        update_column(:file, File.join(File.dirname(request.file),
-          "#{id}-response.xml"))
+        update_column(:file, File.join(File.dirname(
+          request.file), "#{id}-response.xml"))
       end
 
-      # Raw access to the action instance
+      # Check for the 'response_status' attribute
+      # from the parsed data, and return that to
+      # the request.
       #
-      def raw
-        @raw ||= Conduit::Util.find_driver(driver, action, 'parser').new(content)
+      # NOTE: These should be one of the following:
+      #       pending/success/failure
+      #
+      def report_action_status
+        status = parsed_content.action_response_status
+        request.update_attributes(status: status)
       end
 
   end

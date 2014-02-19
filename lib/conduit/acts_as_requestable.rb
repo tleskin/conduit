@@ -30,8 +30,19 @@ module Conduit
       # TODO: Update for efficiency if needed
       #
       def last_conduit_request
-        conduit_requests.order(:created_at)
-          .limit(1).first
+        conduit_requests.last
+      end
+
+      # Fire this method after the last conduit
+      # request has been updated
+      #
+      # NOTE: This could probably be better
+      #       handled by observers, or a
+      #       custom callback.
+      #
+      def after_conduit_update
+        # This method should be overriden
+        # on the requestable object
       end
 
     end
