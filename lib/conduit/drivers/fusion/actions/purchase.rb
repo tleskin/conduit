@@ -1,5 +1,5 @@
-module Conduit::Driver
-  class Fusion::Purchase < Conduit::Core::Action
+module Conduit::Driver::Fusion
+  class Purchase < Conduit::Core::Action
 
     remote_url 'http://72.5.22.217/perl/xml/gateway.cgi'
     required_attributes *Conduit::Driver::Fusion.credentials, :mdn, :plan_id

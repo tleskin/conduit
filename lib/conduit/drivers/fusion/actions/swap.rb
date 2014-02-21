@@ -1,5 +1,5 @@
-module Conduit::Driver
-  class Fusion::Swap < Conduit::Core::Action
+module Conduit::Driver::Fusion
+  class Swap < Conduit::Core::Action
 
     remote_url 'http://72.5.22.217/perl/xml/gateway.cgi'
     required_attributes *Conduit::Driver::Fusion.credentials, :mdn

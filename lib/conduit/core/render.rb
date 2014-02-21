@@ -5,6 +5,8 @@
 # methods to be of any use.
 #
 
+require 'tilt'
+
 module Conduit
   module Core
     module Render
