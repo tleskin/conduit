@@ -3,6 +3,7 @@
 # communication rom Conduit to a remote host.
 #
 
+require 'conduit/version'
 require 'excon'
 
 module Conduit
@@ -46,7 +47,7 @@ module Conduit
         #
         def request(params, &block)
           params[:headers] ||= {}
-          params[:headers]['User-Agent'] ||= "fog/#{Conduit::VERSION}"
+          params[:headers]['User-Agent'] ||= "conduit/#{Conduit::VERSION}"
           connection.request(params, &block)
         end
 
