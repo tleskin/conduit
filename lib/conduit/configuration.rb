@@ -10,7 +10,6 @@ module Conduit
       #
       # Storage
       #
-
       # Define the storage configuration. This could
       # include anything from file paths, to
       # service credentials, and provider
@@ -33,7 +32,6 @@ module Conduit
       #
       # Methods
       #
-
       # Read in the configuration
       #
       def configure(&block)

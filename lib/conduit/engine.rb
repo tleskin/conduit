@@ -12,5 +12,9 @@ module Conduit
       Conduit.app_root = app.root
     end
 
+    initializer 'conduit.load_drivers', after: :load_config_initializers do |app|
+      Conduit::Driver.load_drivers
+    end
+
   end
 end

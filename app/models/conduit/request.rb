@@ -73,7 +73,8 @@ module Conduit
       # Raw access to the action instance
       #
       def raw
-        @raw ||= Conduit::Util.find_driver(driver, action).new(options)
+        @raw ||= Conduit::Util.find_driver(driver,
+          action).new(options)
       end
 
   end
