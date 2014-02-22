@@ -20,32 +20,36 @@ module Conduit
     #       concurrency-safe
     #
     autoload :Connection, 'conduit/core/connection'
-    autoload :Driver,     'conduit/core/driver'
-    autoload :Action,     'conduit/core/action'
     autoload :Render,     'conduit/core/render'
+    autoload :Action,     'conduit/core/action'
+    autoload :Driver,     'conduit/core/driver'
 
   end
 
   module Driver
 
-    # Store a list of available drivers
-    #
-    # e.g.
-    # Conduit::Driver.index
-    # => [:foo, :bar, :baz]
-    #
-    def self.index
-      @index ||= []
-    end
+    class << self
+      # Store a list of available drivers
+      #
+      # e.g.
+      # Conduit::Driver.index
+      # => [:foo, :bar, :baz]
+      #
+      def index
+        @index ||= []
+      end
 
-    # Load the drivers automatically, but only when they're needed
-    #
-    Dir["#{File.dirname(__FILE__)}/conduit/drivers/**/driver.rb"].each do |file|
-      name = File.dirname(file).split(File::SEPARATOR).last.classify.to_sym
-      index << name.downcase
-      autoload name, file
-    end
+      # Load the drivers automatically, but only when they're needed
+      #
+      def load_drivers
+        Dir["#{Conduit::Configuration.driver_path}/**/driver.rb"].each do |file|
+          name = File.dirname(file).split(File::SEPARATOR).last.classify.to_sym
+          index << name.downcase
+          autoload name, file
+        end
+      end
 
+    end
   end
 
   # Load the main application configuration if

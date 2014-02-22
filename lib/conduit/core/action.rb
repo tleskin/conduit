@@ -31,8 +31,8 @@ module Conduit
         # => required_attributes :foo, :bar, :baz
         #
         def required_attributes(*args)
-          requirements.concat(args)
-          attributes.concat(args)
+          requirements.concat(args).uniq
+          attributes.concat(args).uniq
         end
 
         # Set optional attributes
@@ -41,7 +41,7 @@ module Conduit
         # => optional_attributes :foo, :bar, :baz
         #
         def optional_attributes(*args)
-          attributes.concat(args)
+          attributes.concat(args).uniq
         end
 
         # Storage array for required attributes
@@ -82,15 +82,15 @@ module Conduit
         # Can be overriden per class.
         #
         def view_path
-          driver = self.class.to_s.split('::')[-2].downcase
-          path = File.dirname(__FILE__).match(/(.*)conduit/)[0]
-          "#{path}/drivers/#{driver}/views/"
+          driver = self.class.to_s.split('::')[-2].underscore.downcase
+          "#{Conduit::Configuration.driver_path}/#{driver}/views/"
         end
 
         # Return the rendered view
         #
         def view
-          tpl = self.class.name.demodulize.downcase
+          tpl = self.class.name.demodulize
+            .underscore.downcase
           render(tpl)
         end
 

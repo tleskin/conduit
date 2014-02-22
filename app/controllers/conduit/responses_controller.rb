@@ -1,5 +1,5 @@
 module Conduit
-  class ResponseController
+  class ResponsesController < ActionController::Base
 
     # TODO: Determine the actual param the posted content
     # will be stored in, and modify the code below

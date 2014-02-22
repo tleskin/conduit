@@ -2,36 +2,44 @@ require 'spec_helper'
 
 describe Conduit::Request do
 
-  let(:attributes) do
-    {
-      clec_id:  'foo',
-      username: 'bar',
-      token:    'foo2',
-      mdn:      'bar2',
-      plan_id:  1
-    }
+  let(:xml_request) do
+    read_support_file('xml/xml_request.xml')
   end
 
-  before do
-    @request = Conduit::Request.create(driver: :fusion,
-      action: :purchase, options: attributes)
+  subject do
+    Excon.stub({}, body: read_support_file("xml/xml_response.xml"), status: 200)
+
+    Conduit::Request.create(driver: :my_driver,
+      action: :foo, options: request_attributes)
   end
 
   describe "#create" do
     it "generates a file path for storage" do
-      @request.file.should_not be_nil
+      subject.file.should_not be_nil
     end
 
     it "saves the record to the database" do
-      @request.persisted?.should be_true
+      subject.persisted?.should be_true
+    end
+
+    it "creates a response in the database" do
+      subject.responses.should_not be_empty
     end
   end
 
   describe "#destroy" do
-    before { @request.destroy }
+    before { subject.destroy }
 
     it "removes the record from the database" do
-      @request.destroyed?.should be_true
+      subject.destroyed?.should be_true
+    end
+  end
+
+  describe '#content' do
+    it "returns the xml view" do
+      a = subject.content.gsub(/\s+/, "") # Strip whitespace for comparison
+      b = xml_request.gsub(/\s+/, "")     # Strip whitespace for comparison
+      a.should == b
     end
   end
 
