@@ -16,6 +16,3 @@ module Conduit::Driver::Fusion
 
   end
 end
-
-# Conduit::Request.create(driver: 'fusion', action: 'suspend', options: { clec_id: 216, username: 'EZ Admin',
-#  token: '5RO4NB7V86B8GBY', mdn: '4052207357', plan_id: 313 })

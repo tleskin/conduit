@@ -1,5 +1,5 @@
 module Conduit::Driver::Fusion
-  class Swap < Conduit::Core::Action
+  class Restore < Conduit::Core::Action
 
     remote_url 'http://72.5.22.217/perl/xml/gateway.cgi'
     required_attributes *Conduit::Driver::Fusion.credentials, :mdn
@@ -16,6 +16,3 @@ module Conduit::Driver::Fusion
 
   end
 end
-
-# Conduit::Request.create(driver: 'fusion', action: 'swap', options: { clec_id: 216, username: 'EZ Admin',
-#  token: '5RO4NB7V86B8GBY', mdn: '4052207357', plan_id: 313 })

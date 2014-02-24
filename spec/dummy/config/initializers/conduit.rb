@@ -1,3 +1,5 @@
 Conduit.configure do |c|
-  c.driver_path = Rails.root.join('lib', 'conduit', 'drivers')
+  if Rails.env.test?
+    c.driver_path = Rails.root.join('lib', 'conduit', 'drivers')
+  end
 end

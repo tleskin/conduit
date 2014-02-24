@@ -8,7 +8,9 @@ module Conduit::Driver
     action :activate
     action :deactivate
     action :suspend
-    action :swap
+    action :swap_mdn
+    action :swap_esn
+    action :restore
 
   end
 end

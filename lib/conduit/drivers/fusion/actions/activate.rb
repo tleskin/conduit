@@ -17,8 +17,3 @@ module Conduit::Driver::Fusion
 
   end
 end
-
-# Conduit::Request.create(driver: 'fusion', action: 'activate', options: { clec_id: 216, username: 'EZ Admin',
-#  token: '5RO4NB7V86B8GBY', esn: '06800374413', plan_id: 313, first_name: 'Mike', last_name: 'Kelley',
-#  city: 'Jupiter', state: 'FL', zip: '33458', address1: '101 Does Not Matter HWY',
-#  address2: '' })
