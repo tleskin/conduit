@@ -5,8 +5,9 @@ describe Conduit::Response do
   before do
     Excon.stub({}, body: read_support_file("xml/xml_response.xml"), status: 200)
 
-    @request = Conduit::Request.create(driver: :my_driver,
-      action: :foo, options: request_attributes)
+    @request = Conduit::Request.create(driver: :my_driver, action: :foo,
+      options: request_attributes)
+    @request.perform_request
   end
 
   let(:xml_response) do

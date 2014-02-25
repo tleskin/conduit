@@ -22,7 +22,7 @@ describe Conduit::ResponsesController do
     end
 
     it 'creates a response object' do
-      request.responses.length.should == 2
+      request.responses.length.should == 1
     end
   end
 

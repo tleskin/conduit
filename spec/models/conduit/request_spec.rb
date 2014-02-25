@@ -9,8 +9,12 @@ describe Conduit::Request do
   subject do
     Excon.stub({}, body: read_support_file("xml/xml_response.xml"), status: 200)
 
-    Conduit::Request.create(driver: :my_driver,
-      action: :foo, options: request_attributes)
+    Conduit::Request.create(driver: :my_driver, action: :foo,
+      options: request_attributes)
+  end
+
+  before do
+    subject.perform_request
   end
 
   describe "#create" do

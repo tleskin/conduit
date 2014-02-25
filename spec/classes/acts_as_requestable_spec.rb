@@ -45,8 +45,8 @@ describe MyRequestable do
       Excon.stub({}, body: read_support_file("xml/xml_response.xml"), status: 200)
 
       @obj = MyRequestable.create
-      @obj.conduit_requests.create(driver: :my_driver,
-        action: :foo, options: request_attributes)
+      @obj.conduit_requests.create(driver: :my_driver, action: :foo,
+        options: request_attributes).perform_request
     end
 
     describe '#last_conduit_request' do

@@ -17,7 +17,6 @@ module Conduit
     # Hooks
 
     after_initialize  :set_defaults
-    after_create      :perform_request, prepend: true
     after_update      :update_requestable
 
     # Methods
@@ -28,6 +27,15 @@ module Conduit
     #
     def content
       raw.view || super
+    end
+
+    # Perform the requested action
+    # for the specified driver
+    #
+    def perform_request
+      if response = raw.perform
+        responses.create(content: response.body)
+      end
     end
 
     private
@@ -44,15 +52,6 @@ module Conduit
       def generate_storage_path
         update_column(:file, File.join("#{id}".reverse!,
           driver.to_s, action.to_s, "request.xml"))
-      end
-
-      # Perform the requested action
-      # for the specified driver
-      #
-      def perform_request
-        if response = raw.perform
-          responses.create(content: response.body)
-        end
       end
 
       # Notify the requestable that our status
