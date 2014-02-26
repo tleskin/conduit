@@ -1,7 +1,7 @@
 require 'conduit/drivers/fusion/parsers/base'
 
 module Conduit::Driver::Fusion
-  class SwapEsn::Parser < Parser::Base
+  class ChangeDevice::Parser < Parser::Base
 
     def mdn
       string_path('/reponse/mdn')

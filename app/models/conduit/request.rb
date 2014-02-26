@@ -43,7 +43,7 @@ module Conduit
       # Set some default values
       #
       def set_defaults
-        self.status ||= "pending"
+        self.status ||= "open"
       end
 
       # Generate a unique storage key
@@ -65,7 +65,7 @@ module Conduit
       #
       def update_requestable
         last_response = responses.last
-        requestable.after_conduit_update(
+        requestable.after_conduit_update(action,
           last_response.parsed_content) if requestable
       end
 

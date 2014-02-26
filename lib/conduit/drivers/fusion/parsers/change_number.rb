@@ -1,7 +1,7 @@
 require 'conduit/drivers/fusion/parsers/base'
 
 module Conduit::Driver::Fusion
-  class SwapMdn::Parser < Parser::Base
+  class ChangeNumber::Parser < Parser::Base
 
     def msid
       string_path('/reponse/msid')

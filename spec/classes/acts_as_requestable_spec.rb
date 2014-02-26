@@ -8,7 +8,7 @@ class MyRequestable < ActiveRecord::Base
   # Update the `updated_at` timestamp
   # so we know this has been called
   #
-  def after_conduit_update(parsed_content)
+  def after_conduit_update(action, parsed_response)
     self.update_column(:updated_at, 1.day.from_now)
   end
 end
