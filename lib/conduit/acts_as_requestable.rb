@@ -40,7 +40,7 @@ module Conduit
       #       handled by observers, or a
       #       custom callback.
       #
-      def after_conduit_update(parsed_content)
+      def after_conduit_update(action, parsed_response)
         # This method should be overriden
         # on the requestable object
       end

@@ -4,12 +4,13 @@ module Conduit::Driver
 
     required_credentials :clec_id, :username, :token
 
-    action :purchase
-    action :activate
+    action :reset_voicemail
+    action :change_device
+    action :change_number
     action :deactivate
+    action :activate
+    action :purchase
     action :suspend
-    action :swap_mdn
-    action :swap_esn
     action :restore
 
   end
