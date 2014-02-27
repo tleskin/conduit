@@ -73,7 +73,7 @@ module Conduit
       #
       def raw
         @raw ||= Conduit::Util.find_driver(driver,
-          action).new(options)
+          action).new(options.symbolize_keys!)
       end
 
   end
