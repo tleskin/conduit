@@ -15,7 +15,7 @@ module Conduit::Driver::Fusion
       string_path('/reponse/msl')
     end
 
-    def esn
+    def nid
       string_path('/reponse/esn')
     end
 
