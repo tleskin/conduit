@@ -2,7 +2,7 @@ module Conduit::Driver::Fusion
   class ChangeDevice < Conduit::Core::Action
 
     remote_url 'http://72.5.22.217/perl/xml/gateway.cgi'
-    required_attributes *Conduit::Driver::Fusion.credentials, :mdn, :esn
+    required_attributes *Conduit::Driver::Fusion.credentials, :mdn, :nid
 
     # Required entry method, the main driver
     # class will use this to trigger the
