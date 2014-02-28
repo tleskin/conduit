@@ -12,6 +12,7 @@ module Conduit::Driver
     action :purchase
     action :suspend
     action :restore
+    action :query_subscription
 
   end
 end

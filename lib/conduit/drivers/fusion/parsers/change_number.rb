@@ -4,11 +4,11 @@ module Conduit::Driver::Fusion
   class ChangeNumber::Parser < Parser::Base
 
     def msid
-      string_path('/reponse/msid')
+      string_path('/BeQuick/response/msid/text()')
     end
 
     def mdn
-      string_path('/reponse/newMDN')
+      string_path('/BeQuick/response/newMDN/text()').gsub(/\D/, '')
     end
 
   end
