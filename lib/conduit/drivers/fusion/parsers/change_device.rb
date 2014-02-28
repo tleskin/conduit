@@ -4,19 +4,19 @@ module Conduit::Driver::Fusion
   class ChangeDevice::Parser < Parser::Base
 
     def mdn
-      string_path('/reponse/mdn')
+      string_path('/BeQuick/response/mdn/text()').gsub(/\D/, '')
     end
 
     def msid
-      string_path('/reponse/msid')
+      string_path('/BeQuick/response/msid/text()')
     end
 
     def msl
-      string_path('/reponse/msl')
+      string_path('/BeQuick/response/msl/text()')
     end
 
     def nid
-      string_path('/reponse/esn')
+      string_path('/BeQuick/response/esn/text()')
     end
 
   end
