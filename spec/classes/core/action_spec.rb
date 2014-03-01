@@ -13,13 +13,13 @@ shared_examples_for Conduit::Core::Action do
 
     describe '.requirements' do
       it 'returns an array of required attributes' do
-        subject.class.requirements.should == %i(foo bar baz)
+        subject.class.requirements.should == %i(foo bar baz).to_set
       end
     end
 
     describe '.attributes' do
       it 'returns an array of known attributes' do
-        subject.class.requirements.should == %i(foo bar baz)
+        subject.class.requirements.should == %i(foo bar baz).to_set
       end
     end
   end

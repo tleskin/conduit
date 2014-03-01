@@ -5,13 +5,13 @@ shared_examples_for Conduit::Core::Driver do
   context 'without an instance' do
     describe '.credentials' do
       it 'returns an array of required credentials' do
-        subject.credentials.should == %i(username password)
+        subject.credentials.should == %i(username password).to_set
       end
     end
 
     describe '.actions' do
       it 'returns an array of known action' do
-        subject.actions.should == %i(foo)
+        subject.actions.should == %i(foo).to_set
       end
     end
 
