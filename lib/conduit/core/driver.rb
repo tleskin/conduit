@@ -15,6 +15,8 @@
 # => end
 #
 
+require 'set'
+
 module Conduit
   module Core
     module Driver
@@ -25,7 +27,7 @@ module Conduit
       # => required_credentials :foo, :bar, :baz
       #
       def required_credentials(*args)
-        credentials.concat(args).uniq
+        credentials.merge(args)
       end
 
       # Set available actions
@@ -36,7 +38,7 @@ module Conduit
       def action(action_name)
         require File.join(driver_path, 'actions', action_name.to_s)
         require File.join(driver_path, 'parsers', action_name.to_s)
-        (actions << action_name).uniq
+        actions << action_name
       end
 
       # Storage array for required credentials
@@ -46,7 +48,7 @@ module Conduit
       # => [:foo, :bar, :baz]
       #
       def credentials
-        @credentials ||= []
+        @credentials ||= Set.new
       end
 
       # Storage array for required credentials
@@ -56,7 +58,7 @@ module Conduit
       # => [:purchase]
       #
       def actions
-        @actions ||= []
+        @actions ||= Set.new
       end
 
       private

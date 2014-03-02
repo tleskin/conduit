@@ -12,6 +12,8 @@
 # => action.perform
 #
 
+require 'set'
+
 module Conduit
   module Core
     class Action
@@ -31,8 +33,8 @@ module Conduit
         # => required_attributes :foo, :bar, :baz
         #
         def required_attributes(*args)
-          requirements.concat(args).uniq
-          attributes.concat(args).uniq
+          requirements.merge(args)
+          attributes.merge(args)
         end
 
         # Set optional attributes
@@ -41,19 +43,19 @@ module Conduit
         # => optional_attributes :foo, :bar, :baz
         #
         def optional_attributes(*args)
-          attributes.concat(args).uniq
+          attributes.merge(args)
         end
 
         # Storage array for required attributes
         #
         def requirements
-          @requirements ||= []
+          @requirements ||= Set.new
         end
 
         # Storage array for all attributes
         #
         def attributes
-          @attributes ||= []
+          @attributes ||= Set.new
         end
 
       end
