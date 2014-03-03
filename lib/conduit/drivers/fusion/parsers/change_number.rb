@@ -8,7 +8,7 @@ module Conduit::Driver::Fusion
     end
 
     def mdn
-      string_path('/BeQuick/response/newMDN/text()').gsub(/\D/, '')
+      string_path('/BeQuick/response/newMdn/text()').gsub(/\D/, '')
     end
 
   end
