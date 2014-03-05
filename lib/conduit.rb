@@ -1,5 +1,5 @@
 require 'conduit/engine'
-require 'conduit/acts_as_requestable'
+require 'conduit/acts_as_conduit_subscriber'
 
 module Conduit
 

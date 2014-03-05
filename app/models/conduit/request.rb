@@ -6,8 +6,8 @@ module Conduit
 
     # Associations
 
-    has_many    :responses,   dependent: :destroy
-    belongs_to  :requestable, polymorphic: true
+    has_many :responses,   dependent: :destroy
+    has_many :subscriptions, autosave: true
 
     # Validations
 
@@ -17,7 +17,7 @@ module Conduit
     # Hooks
 
     after_initialize  :set_defaults
-    after_update      :update_requestable
+    after_update      :notify_subscribers
 
     # Methods
 
@@ -36,6 +36,31 @@ module Conduit
       if response = raw.perform
         responses.create(content: response.body)
       end
+    end
+
+    # Allow creation of subscriptions through the
+    # subscribers virtual attribute.
+    #
+    # NOTE: This is usually possible by default with a
+    #       has_many :through, but with polymorphic
+    #       association it gets more complicated.
+    #
+    def subscribers=(args)
+      args.map do |arg|
+        next unless arg.class < ActiveRecord::Base
+        subscriptions.build(subscriber: arg)
+      end
+    end
+
+    # Fetch a list of subscribers through
+    # the subscriptions association
+    #
+    # NOTE: This is usually possible by default with a
+    #       has_many :through, but with polymorphic
+    #       association it gets more complicated.
+    #
+    def subscribers
+      subscriptions.map(&:subscriber)
     end
 
     private
@@ -59,14 +84,12 @@ module Conduit
       # a predefined method name on the
       # requestable instance
       #
-      # NOTE: This could probably be better
-      #       handled by observers, or a
-      #       custom callback.
-      #
-      def update_requestable
+      def notify_subscribers
         last_response = responses.last
-        requestable.after_conduit_update(action,
-          last_response.parsed_content) if requestable
+        subscribers.each do |subscriber|
+          subscriber.after_conduit_update(action,
+            last_response.parsed_content)
+        end
       end
 
       # Raw access to the action instance
