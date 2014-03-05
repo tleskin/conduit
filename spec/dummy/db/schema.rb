@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140218214960) do
+ActiveRecord::Schema.define(version: 20140305202729) do
 
   create_table "conduit_requests", force: true do |t|
     t.string   "driver"
@@ -19,8 +19,6 @@ ActiveRecord::Schema.define(version: 20140218214960) do
     t.text     "options"
     t.string   "file"
     t.string   "status"
-    t.string   "requestable_type"
-    t.integer  "requestable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -33,5 +31,16 @@ ActiveRecord::Schema.define(version: 20140218214960) do
   end
 
   add_index "conduit_responses", ["request_id"], name: "index_conduit_responses_on_request_id", using: :btree
+
+  create_table "conduit_subscriptions", force: true do |t|
+    t.integer  "request_id"
+    t.integer  "subscriber_id"
+    t.string   "subscriber_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "conduit_subscriptions", ["request_id"], name: "index_conduit_subscriptions_on_request_id", using: :btree
+  add_index "conduit_subscriptions", ["subscriber_type", "subscriber_id"], name: "index_conduit_subscriptions_on_subscriber_type_and_subscriber_id", using: :btree
 
 end
