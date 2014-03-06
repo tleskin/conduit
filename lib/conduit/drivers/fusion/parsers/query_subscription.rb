@@ -23,6 +23,10 @@ module Conduit::Driver::Fusion
       string_path('/BeQuick/response/msl/text()')
     end
 
+    def nid
+      string_path('/BeQuick/response/esn/text()')
+    end
+
     def available_minutes
       string_path('/BeQuick/response/totalMinutes/text()')
     end
