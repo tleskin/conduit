@@ -112,7 +112,7 @@ module Conduit
           # an ArgumentError listing missing attributes
           #
           def validate!(options)
-            missing_keys = (requirements - options.keys)
+            missing_keys = (requirements.to_a - options.keys)
             if missing_keys.any?
               raise ArgumentError,
                 "Missing keys: #{missing_keys.join(', ')}"
