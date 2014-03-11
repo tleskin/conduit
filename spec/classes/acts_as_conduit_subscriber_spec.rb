@@ -49,28 +49,6 @@ describe MySubscriber do
         options: request_attributes).perform_request
     end
 
-    describe '#last_conduit_request' do
-      it 'returns the last conduit request made' do
-        @obj.last_conduit_request.should_not be_nil
-      end
-
-      it 'it should exists within the conduit_requests collection' do
-        @obj.conduit_requests.include?(@obj.last_conduit_request).should == true
-      end
-    end
-
-    describe '#last_conduit_request_action' do
-      it 'returns the action of the last conduit request made' do
-        @obj.last_conduit_request_action.should == 'foo'
-      end
-    end
-
-    describe '#last_conduit_request_status' do
-      it 'returns the status of the last conduit request made' do
-        @obj.last_conduit_request_status.should == 'success'
-      end
-    end
-
     describe '#after_conduit_update' do
       it 'gets called after a request is updated' do
         @obj.reload # Bust the cache

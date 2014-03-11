@@ -19,6 +19,12 @@ module Conduit
     after_initialize  :set_defaults
     after_update      :notify_subscribers
 
+    # Scopes
+
+    scope :by_action, -> (actions) { where(action: actions) }
+    scope :by_driver, -> (drivers) { where(driver: drivers) }
+    scope :by_status, -> (status)  { where(status: status)  }
+
     # Methods
 
     # Overriding this method fixes an issue
