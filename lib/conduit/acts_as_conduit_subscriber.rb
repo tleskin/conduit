@@ -21,18 +21,6 @@ module Conduit
     #
     module LocalInstanceMethods
 
-      delegate :status, to: :last_conduit_request, prefix: true, allow_nil: true
-      delegate :action, to: :last_conduit_request, prefix: true, allow_nil: true
-
-      # Return a reference to the most recent
-      # conduit request
-      #
-      # TODO: Update for efficiency if needed
-      #
-      def last_conduit_request
-        conduit_requests.last
-      end
-
       # Fire this method after the last conduit
       # request has been updated
       #
