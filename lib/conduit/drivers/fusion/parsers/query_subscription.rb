@@ -3,6 +3,10 @@ require 'conduit/drivers/fusion/parsers/base'
 module Conduit::Driver::Fusion
   class QuerySubscription::Parser < Parser::Base
 
+    def status
+      errors.empty? ? "success" : "failure"
+    end
+
     def line_status
       string_path('/BeQuick/response/status/text()')
     end
