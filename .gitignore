@@ -6,6 +6,7 @@
 .ruby-gemset
 .pow*
 
+*.gem
 *.swp
 database.yml
 application.yml
