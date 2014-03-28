@@ -23,9 +23,20 @@ module Conduit
         base.send :include, Conduit::Core::Render
         base.send :include, InstanceMethods
         base.extend ClassMethods
+
+        # TODO: Move this to the driver scope
+        #       which allows for setting this
+        #       "globally" for the driver.
+        #
+        path = caller.first[/^[^:]+/]
+        define_method(:action_path) do
+          File.dirname(path)
+        end
       end
 
       module ClassMethods
+
+        attr_accessor :_action_path
 
         # Set required attributes
         #
@@ -84,8 +95,7 @@ module Conduit
         # Can be overriden per class.
         #
         def view_path
-          driver = self.class.to_s.split('::')[-2].underscore.downcase
-          "#{Conduit::Configuration.driver_path}/#{driver}/views/"
+          File.join(File.dirname(action_path), 'views')
         end
 
         # Return the rendered view

@@ -25,15 +25,6 @@ shared_examples_for Conduit::Core::Action do
   end
 
   context 'with an instance' do
-    describe '#view_context' do
-      it 'returns a path to the driver views' do
-        base_path   = Conduit::Configuration.driver_path
-        driver_path = File.join(base_path, 'my_driver', 'views/')
-
-        subject.view_path.should == driver_path
-      end
-    end
-
     describe '#view' do
       it 'returns a rendered view for an action' do
         a = subject.view.gsub(/\s+/, '')

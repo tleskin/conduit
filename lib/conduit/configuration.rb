@@ -26,8 +26,8 @@ module Conduit
       # Define the driver load path
       # Define an array of drivers to load
       #
-      mattr_accessor :driver_path
-      self.driver_path = "#{File.dirname(__FILE__)}/drivers"
+      mattr_accessor :driver_paths
+      self.driver_paths = ["#{File.dirname(__FILE__)}/drivers"]
 
       #
       # Methods

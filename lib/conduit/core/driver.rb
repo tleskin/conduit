@@ -21,6 +21,11 @@ module Conduit
   module Core
     module Driver
 
+      def self.extended(base)
+        base.instance_variable_set("@_driver_path",
+          File.dirname(caller.first[/^[^:]+/]))
+      end
+
       # Set required credentials
       #
       # e.g.
@@ -36,8 +41,8 @@ module Conduit
       # => action :purchase
       #
       def action(action_name)
-        require File.join(driver_path, 'actions', action_name.to_s)
-        require File.join(driver_path, 'parsers', action_name.to_s)
+        require File.join(@_driver_path, 'actions', action_name.to_s)
+        require File.join(@_driver_path, 'parsers', action_name.to_s)
         actions << action_name
       end
 
@@ -71,16 +76,6 @@ module Conduit
         #
         def driver_name
           self.name.demodulize.underscore.downcase
-        end
-
-        # Return the path to the driver
-        #
-        # e.g.
-        # Conduit::Drivers::Fusion.path
-        # => "/Users/mike/Projects/BeQuick/conduit/lib/conduit/drivers/fusion"
-        #
-        def driver_path
-          File.join(Conduit::Configuration.driver_path, driver_name)
         end
 
     end

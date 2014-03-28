@@ -42,10 +42,14 @@ module Conduit
       # Load the drivers automatically, but only when they're needed
       #
       def load_drivers
-        Dir["#{Conduit::Configuration.driver_path}/**/driver.rb"].each do |file|
-          name = File.dirname(file).split(File::SEPARATOR).last.classify.to_sym
-          index << name.downcase
-          autoload name, file
+        Conduit::Configuration.driver_paths.each do |dir|
+          raise "Directory not found: #{dir}" unless File.exists?(dir)
+          Dir["#{dir}/**/driver.rb"].each do |file|
+            raise "File not found: #{file}" unless File.exists?(file)
+            name = File.dirname(file).split(File::SEPARATOR).last.classify.to_sym
+            index << name.downcase
+            autoload name, file
+          end
         end
       end
 
