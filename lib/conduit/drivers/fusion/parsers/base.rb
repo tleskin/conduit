@@ -1,8 +1,8 @@
 require 'nokogiri'
-
+  
 module Conduit::Driver::Fusion
   module Parser
-    class Base
+    class Base < Conduit::Core::Base
       attr_accessor :xml
 
       def initialize(xml)
@@ -51,16 +51,6 @@ module Conduit::Driver::Fusion
       #
       def action_response_status
         status
-      end
-
-      # Returns a hash representation of each method name
-      # defined in a parser and its value.
-      #
-      def serializable_hash
-        parser_methods = public_methods(false) - [__method__]
-        parser_methods.inject({}) do |hash, method|
-          hash.tap { |hash| hash[method] = send(method ) }
-        end
       end
 
       private
