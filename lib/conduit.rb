@@ -56,11 +56,4 @@ module Conduit
     end
   end
 
-  # Load the main application configuration if
-  # none is provided, we load sane defaults
-  #
-  def self.configure(&block)
-    Configuration.configure(&block)
-  end
-
 end
