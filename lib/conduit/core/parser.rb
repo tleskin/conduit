@@ -6,15 +6,26 @@
 module Conduit
   module Core
     class Parser
-      cattr_accessor :attributes
 
-      # Define an attribute that will be publically exposed
-      # when dealing with conduit responses.
-      #
-      def self.attribute(attr_name, &block)
-        attributes << attr_name
-        define_method(attr_name, &block)
+      class << self
+
+        # Define an attribute that will be publically exposed
+        # when dealing with conduit responses.
+        #
+        def attribute(attr_name, &block)
+          attributes << attr_name
+          define_method(attr_name, &block)
+        end
+
+        # Storage array for all attributes
+        #
+        def attributes
+          @attributes ||= []
+        end
+
       end
+
+      delegate :attributes, to: :class
 
       # Returns a hash representation of each attribute
       # defined in a parser and its value.
@@ -38,6 +49,7 @@ module Conduit
       def response_errors
         raise NoMethodError, "Please define response_errors in your parser."
       end
+  
     end
   end
 end
