@@ -12,7 +12,7 @@ module Conduit
 
     # Hooks
 
-    after_create :report_action_status
+    after_create :report_response_status
 
     # Methods
 
@@ -41,8 +41,8 @@ module Conduit
       # NOTE: These should be one of the following:
       #       pending/success/failure
       #
-      def report_action_status
-        status = parsed_content.action_response_status
+      def report_response_status
+        status = parsed_content.response_status
         request.update_attributes(status: status)
       end
 
