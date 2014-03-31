@@ -22,6 +22,7 @@ module Conduit
     autoload :Connection, 'conduit/core/connection'
     autoload :Render,     'conduit/core/render'
     autoload :Action,     'conduit/core/action'
+    autoload :Parder,     'conduit/core/parser'
     autoload :Driver,     'conduit/core/driver'
 
   end
