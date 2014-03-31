@@ -23,7 +23,6 @@ Gem::Specification.new do |s|
   # Dependencies
   #
   s.add_dependency 'rails', '~> 4.0.0'
-  s.add_dependency 'sqlite3'
   s.add_dependency 'excon'
   s.add_dependency 'aws-sdk'
   s.add_dependency 'tilt'
@@ -34,6 +33,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'pry-rails'
+  s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'hirb'
 
 end
