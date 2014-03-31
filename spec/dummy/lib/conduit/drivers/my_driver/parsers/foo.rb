@@ -5,7 +5,7 @@ module Conduit::Driver::MyDriver
       @xml = xml
     end
 
-    def action_response_status
+    def response_status
       "success"
     end
 

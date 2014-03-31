@@ -25,11 +25,18 @@ module Conduit
         end
       end
 
-      # Assumes all requests were successful.
+      # Default response status.
       # Should be overwritten by parser implementation.
       #
-      def action_response_status
-        "success"
+      def response_status
+        raise NoMethodError, "Please define response_status in your parser."
+      end
+
+      # Default response error container.
+      # Should be overwritten by parser implementation.
+      #
+      def response_errors
+        raise NoMethodError, "Please define response_errors in your parser."
       end
     end
   end
