@@ -23,11 +23,10 @@ Gem::Specification.new do |s|
   # Dependencies
   #
   s.add_dependency 'rails', '~> 4.0.0'
-  s.add_dependency 'mysql2'
+  s.add_dependency 'sqlite3'
   s.add_dependency 'excon'
   s.add_dependency 'aws-sdk'
   s.add_dependency 'tilt'
-  s.add_dependency 'nokogiri'
 
   # Development Dependencies
   #

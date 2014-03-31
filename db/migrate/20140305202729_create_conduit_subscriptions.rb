@@ -7,6 +7,6 @@ class CreateConduitSubscriptions < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :conduit_subscriptions, [:subscriber_type, :subscriber_id]
+    add_index :conduit_subscriptions, [:subscriber_type, :subscriber_id], name: 'index_conduit_subscriptions_on_subscriber'
   end
 end
