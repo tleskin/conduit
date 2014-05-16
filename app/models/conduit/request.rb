@@ -35,13 +35,15 @@ module Conduit
       raw.view || super
     end
 
-    # Perform the requested action
-    # for the specified driver
+    # Perform the requested action for the specified driver
+    # We need to also capture any timeouts, and update
+    # the status accordingly.
     #
     def perform_request
-      if response = raw.perform
-        responses.create(content: response.body)
-      end
+      return unless response = raw.perform
+      responses.create(content: response.body)
+    rescue Excon::Errors::Timeout
+      update_attributes(status: :timeout)
     end
 
     # Allow creation of subscriptions through the
