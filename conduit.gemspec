@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
 
   # Dependencies
   #
-  s.add_dependency 'rails', '~> 4.0.0'
+  s.add_dependency 'rails'
   s.add_dependency 'excon'
   s.add_dependency 'aws-sdk'
   s.add_dependency 'tilt'
