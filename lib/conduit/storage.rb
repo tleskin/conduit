@@ -17,14 +17,14 @@ module Conduit
     # config/initializers/conduit.rb
     #
     def self.config
-      Configuration.storage_config
+      Conduit.configuration.storage
     end
 
     # Get the name of the chosen provider
     # from the configuration
     #
     def self.provider
-      Configuration.storage_config[:provider]
+      Conduit.configuration.storage[:provider]
     end
 
     # Load in the functionality for the storage provider

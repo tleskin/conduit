@@ -12,6 +12,9 @@
 # => action.perform
 #
 
+require 'active_support/inflector'
+require 'forwardable'
+require 'ostruct'
 require 'set'
 
 module Conduit
@@ -72,13 +75,23 @@ module Conduit
       end
 
       module InstanceMethods
-
-        delegate :requirements, :attributes, to: :class
+        extend Forwardable
 
         def initialize(**options)
           @options = options
           validate!(options)
         end
+
+        def_delegator :'self.class', :requirements
+        def_delegator :'self.class', :attributes
+
+        # def requirements
+        #   self.class.requirements
+        # end
+
+        # def attributes
+        #   self.class.attributes
+        # end
 
         # Object used for passing data to the view
         # Only keys listed in attributes will be

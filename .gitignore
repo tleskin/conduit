@@ -5,24 +5,8 @@
 .ruby-version
 .ruby-gemset
 .pow*
-
 *.gem
 *.swp
-database.yml
-application.yml
 
-tmp/*
-log/*
-coverage/*
 vendor/bundle
-db/*.sqlite3
-db/*.sqlite3-journal
 
-spec/dummy/log/*
-spec/dummy/tmp/*
-spec/dummy/db/*.sqlite3
-spec/dummy/db/*.sqlite3-journal
-spec/dummy/vendor/bundle/*
-spec/dummy/coverage
-
-!spec/dummy/config/database.yml

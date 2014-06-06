@@ -3,9 +3,14 @@
 # and provide parsed attributes that can be
 # predictably consumed.
 #
+
+require 'forwardable'
+require 'set'
+
 module Conduit
   module Core
     class Parser
+      extend Forwardable
 
       class << self
 
@@ -20,12 +25,12 @@ module Conduit
         # Storage array for all attributes
         #
         def attributes
-          @attributes ||= []
+          @attributes ||= Set.new
         end
 
       end
 
-      delegate :attributes, to: :class
+      def_delegator :'self.class', :attributes
 
       # Returns a hash representation of each attribute
       # defined in a parser and its value.
@@ -49,7 +54,6 @@ module Conduit
       def response_errors
         raise NoMethodError, "Please define response_errors in your parser."
       end
-  
     end
   end
 end

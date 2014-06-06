@@ -1,15 +1,13 @@
-require 'conduit/engine'
-require 'conduit/acts_as_conduit_subscriber'
+$:.unshift File.dirname(__FILE__)
+
+require 'conduit/configuration'
 
 module Conduit
-
-  mattr_accessor :app_root
 
   # Autoload the Conduit base classes
   # NOTE: Autoloading should be
   #       concurrency-safe
   #
-  autoload :Configuration,     'conduit/configuration'
   autoload :Storage,           'conduit/storage'
   autoload :Util,              'conduit/util'
 
@@ -43,7 +41,7 @@ module Conduit
       # Load the drivers automatically, but only when they're needed
       #
       def load_drivers
-        Conduit::Configuration.driver_paths.each do |dir|
+        Conduit.configuration.driver_paths.each do |dir|
           raise "Directory not found: #{dir}" unless File.exists?(dir)
           Dir["#{dir}/**/driver.rb"].each do |file|
             raise "File not found: #{file}" unless File.exists?(file)

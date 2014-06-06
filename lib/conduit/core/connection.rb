@@ -4,6 +4,7 @@
 #
 
 require 'conduit/version'
+require 'forwardable'
 require 'excon'
 
 module Conduit
@@ -29,8 +30,9 @@ module Conduit
       end
 
       module InstanceMethods
+        extend Forwardable
 
-        delegate :remote_url, to: :class
+        def_delegator :'self.class', :remote_url
 
         # Make a request
         #
