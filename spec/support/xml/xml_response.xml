@@ -1,3 +1,6 @@
 <BeQuick product="conduit">
   <response status="success" action="foo" />
+  <foo>foo</foo>
+  <bar>bar</bar>
+  <baz>baz</baz>
 </BeQuick>

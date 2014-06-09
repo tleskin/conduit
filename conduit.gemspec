@@ -11,8 +11,8 @@ Gem::Specification.new do |s|
   s.name     = 'conduit'
   s.version  = Conduit::VERSION
   s.authors  = ['Mike Kelley']
-  s.email    = ['mike.kelley@bqsoft.com']
-  s.homepage = 'https://github.com/bqsoft/conduit'
+  s.email    = ['mike@codezombie.org']
+  s.homepage = 'https://github.com/conduit/conduit'
   s.summary  = 'Conduit is an interface for debit platforms.'
 
   # Files
@@ -22,18 +22,16 @@ Gem::Specification.new do |s|
 
   # Dependencies
   #
-  s.add_dependency 'rails'
-  s.add_dependency 'excon'
+  s.add_dependency 'activesupport'
   s.add_dependency 'aws-sdk'
+  s.add_dependency 'excon'
   s.add_dependency 'tilt'
 
   # Development Dependencies
   #
   s.add_development_dependency 'shoulda-matchers'
-  s.add_development_dependency 'database_cleaner'
-  s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'pry-rails'
-  s.add_development_dependency 'sqlite3'
-  s.add_development_dependency 'hirb'
+  s.add_development_dependency 'rspec-its'
+  s.add_development_dependency 'nokogiri'
+  s.add_development_dependency 'rspec'
 
 end

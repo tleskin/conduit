@@ -2,6 +2,9 @@ require 'spec_helper'
 
 shared_examples_for Conduit::Core::Action do
 
+  let(:request)  { read_support_file('xml/xml_request.xml')  }
+  let(:response) { read_support_file('xml/xml_response.xml') }
+
   subject do
     described_class.new(request_attributes)
   end
@@ -26,21 +29,27 @@ shared_examples_for Conduit::Core::Action do
 
   context 'with an instance' do
     describe '#view' do
+      before do
+        Excon.stub({}, body: request, status: 200)
+      end
+
       it 'returns a rendered view for an action' do
         a = subject.view.gsub(/\s+/, '')
-        b = read_support_file('xml/xml_request.xml').gsub(/\s+/, '')
+        b = request.gsub(/\s+/, '')
         a.should == b
       end
     end
 
     describe '#perform' do
+      before { Excon.stub({}, body: response, status: 200) }
+
       it 'returns a 200 status' do
         subject.perform.status.should == 200
       end
 
       it 'returns a response body' do
         a = subject.perform.body.gsub(/\s+/, '')
-        b = read_support_file('xml/xml_response.xml').gsub(/\s+/, '')
+        b = response.gsub(/\s+/, '')
         a.should == b
       end
     end

@@ -4,40 +4,29 @@
 #
 
 module Conduit
-  module Configuration
-    class << self
+  class << self
+    attr_accessor :configuration
+  end
 
-      #
-      # Storage
-      #
-      # Define the storage configuration. This could
-      # include anything from file paths, to
-      # service credentials, and provider
-      #
-      mattr_accessor :storage_config
-      self.storage_config = {
-        provider:   :file,
-        file_path:  Conduit.app_root.join('tmp', 'conduit')
-      }
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
 
-      #
-      # Drivers
-      #
-      # Define the driver load path
-      # Define an array of drivers to load
-      #
-      mattr_accessor :driver_paths
-      self.driver_paths = ["#{File.dirname(__FILE__)}/drivers"]
+  def self.configure(&block)
+    yield configuration
+  end
 
-      #
-      # Methods
-      #
-      # Read in the configuration
-      #
-      def configure(&block)
-        yield self
-      end
+  class Configuration
+    attr_accessor :storage_config, :driver_paths
 
+    def storage
+      path = File.join(__dir__, '../', 'tmp', 'conduit')
+      @storage_config ||= { provider: :file, file_path: path }
+    end
+
+    def driver_paths
+      default_path = "#{File.dirname(__FILE__)}/drivers"
+      @driver_paths ||= Array(default_path)
     end
   end
 end
