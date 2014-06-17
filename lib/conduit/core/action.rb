@@ -32,7 +32,7 @@ module Conduit
         #       "globally" for the driver.
         #
         path = caller.first[/^[^:]+/]
-        define_method(:action_path) do
+        base.send(:define_method, :action_path) do
           File.dirname(path)
         end
       end
