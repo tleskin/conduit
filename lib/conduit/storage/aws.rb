@@ -19,16 +19,15 @@ module Conduit
 
       module ClassMethods
 
-        # Configure AWS::S3 if we have explicit config
-        #
-        # TODO: This needs to be tested against AWS IAM.
-        #       I'm thinking this being a "module"
-        #       might cause issues.
+        # Configure AWS::S3 with credentials if provided, else, assume
+        # IAM will provide them.
         #
         def configure
           if [:aws_access_key_id, :aws_access_secret].all? { |key| config.has_key?(key) }
             AWS.config(:access_key_id => config[:aws_access_key_id],
               :secret_access_key => config[:aws_access_secret])
+          else
+            AWS.config
           end
         end
 
