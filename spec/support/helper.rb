@@ -4,7 +4,7 @@ module Helper
     {
       foo: 'value for foo',
       bar: 'value for bar',
-      baz: 'value for baz',
+      baz: 'value for baz'
     }
   end
 

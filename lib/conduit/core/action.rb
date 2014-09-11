@@ -98,7 +98,7 @@ module Conduit
         # used.
         #
         def view_context
-          OpenStruct.new(@options.select do |k,v|
+          OpenStruct.new(@options.select do |k, v|
             attributes.include?(k)
           end)
         end
@@ -125,23 +125,34 @@ module Conduit
         # Override to customize.
         #
         def perform
-          request(body: view, method: :post)
+          response = request(body: view, method: :post)
+          parser   = parser_class.new(response.body)
+
+          Conduit::Response.new(raw_response: response,
+            parser: parser)
         end
 
         private
 
-          # Ensures that all required attributes are present
-          # If not all attributes are present, will raise
-          # an ArgumentError listing missing attributes
-          #
-          def validate!(options)
-            missing_keys = (requirements.to_a - options.keys)
-            if missing_keys.any?
-              raise ArgumentError,
-                "Missing keys: #{missing_keys.join(', ')}"
-            end
+        # Ensures that all required attributes are present
+        # If not all attributes are present, will raise
+        # an ArgumentError listing missing attributes
+        #
+        def validate!(options)
+          missing_keys = (requirements.to_a - options.keys)
+          if missing_keys.any?
+            raise ArgumentError,
+              "Missing keys: #{missing_keys.join(', ')}"
           end
+        end
 
+        # Returns the parser for this action
+        # subclasses responsible for providing the
+        # response_body and response_status.
+        #
+        def parser_class
+          self.class.const_get(:Parser)
+        end
       end
 
     end

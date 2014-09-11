@@ -22,7 +22,7 @@ module Conduit
     module Driver
 
       def self.extended(base)
-        base.instance_variable_set("@_driver_path",
+        base.instance_variable_set('@_driver_path',
           File.dirname(caller.first[/^[^:]+/]))
       end
 
@@ -68,15 +68,15 @@ module Conduit
 
       private
 
-        # Return the name of the driver
-        #
-        # e.g.
-        # Conduit::Drivers::Fusion.name
-        # => "fusion"
-        #
-        def driver_name
-          self.name.demodulize.underscore.downcase
-        end
+      # Return the name of the driver
+      #
+      # e.g.
+      # Conduit::Drivers::Fusion.name
+      # => "fusion"
+      #
+      def driver_name
+        self.name.demodulize.underscore.downcase
+      end
 
     end
   end
