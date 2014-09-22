@@ -45,14 +45,14 @@ module Conduit
       # Should be overwritten by parser implementation.
       #
       def response_status
-        raise NoMethodError, "Please define response_status in your parser."
+        raise NoMethodError, 'Please define response_status in your parser.'
       end
 
       # Default response error container.
       # Should be overwritten by parser implementation.
       #
       def response_errors
-        raise NoMethodError, "Please define response_errors in your parser."
+        raise NoMethodError, 'Please define response_errors in your parser.'
       end
     end
   end

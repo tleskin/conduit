@@ -43,14 +43,12 @@ shared_examples_for Conduit::Core::Action do
     describe '#perform' do
       before { Excon.stub({}, body: response, status: 200) }
 
-      it 'returns a 200 status' do
-        subject.perform.status.should == 200
+      it 'returns a response wrapper' do
+        subject.perform.should be_a_kind_of(Conduit::Response)
       end
 
-      it 'returns a response body' do
-        a = subject.perform.body.gsub(/\s+/, '')
-        b = response.gsub(/\s+/, '')
-        a.should == b
+      it 'should return the raw_content' do
+        subject.perform.body.should_not be_nil
       end
     end
   end

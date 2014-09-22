@@ -1,4 +1,4 @@
-$:.unshift File.dirname(__FILE__)
+$LOAD_PATH.unshift File.dirname(__FILE__)
 
 require 'conduit/configuration'
 
@@ -8,8 +8,10 @@ module Conduit
   # NOTE: Autoloading should be
   #       concurrency-safe
   #
-  autoload :Storage,           'conduit/storage'
-  autoload :Util,              'conduit/util'
+  autoload :Storage,      'conduit/storage'
+  autoload :Util,         'conduit/util'
+  autoload :Response,     'conduit/response'
+  autoload :TimeOut,      'conduit/time_out'
 
   module Core
 
@@ -22,7 +24,6 @@ module Conduit
     autoload :Action,     'conduit/core/action'
     autoload :Parser,     'conduit/core/parser'
     autoload :Driver,     'conduit/core/driver'
-
   end
 
   module Driver
@@ -42,9 +43,9 @@ module Conduit
       #
       def load_drivers
         Conduit.configuration.driver_paths.each do |dir|
-          raise "Directory not found: #{dir}" unless File.exists?(dir)
+          raise "Directory not found: #{dir}" unless File.exist?(dir)
           Dir["#{dir}/**/driver.rb"].each do |file|
-            raise "File not found: #{file}" unless File.exists?(file)
+            raise "File not found: #{file}" unless File.exist?(file)
             name = File.dirname(file).split(File::SEPARATOR).last.classify.to_sym
             index << name.downcase
             autoload name, file

@@ -30,7 +30,7 @@ module Conduit
       # => render :purchase
       #
       def render(file, layout: true)
-        raise ViewPathNotDefined, "" unless view_path
+        raise ViewPathNotDefined, '' unless view_path
         layout ? render_with_layout(file) : render_template(file)
       end
 

@@ -6,5 +6,10 @@ module Conduit::Driver::MyDriver
     required_attributes :foo, :bar, :baz
     optional_attributes :buz
 
+    private
+
+    def response_class
+      Conduit::Driver::MyDriver::Response
+    end
   end
 end

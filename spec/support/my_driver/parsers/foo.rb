@@ -8,15 +8,15 @@ module Conduit::Driver::MyDriver
     end
 
     attribute :foo do
-      "foo"
+      'foo'
     end
 
     attribute :bar do
-      "bar"
+      'bar'
     end
 
     attribute :baz do
-      "baz"
+      'baz'
     end
 
     # Return "success/failure". This gets
@@ -57,7 +57,7 @@ module Conduit::Driver::MyDriver
     # object_path('//resources/@timestamp')
     # => [#<Nokogiri::XML::Attr:0x3fca8b040818 name="timestamp" value="20140130180057">]
     #
-    def object_path(path, node=doc)
+    def object_path(path, node = doc)
       node.xpath(path)
     end
 
@@ -67,7 +67,7 @@ module Conduit::Driver::MyDriver
     # string_path('//resources/@timestamp')
     # => 20140130180057
     #
-    def string_path(path, node=doc)
+    def string_path(path, node = doc)
       object_path(path, node).to_s
     end
 

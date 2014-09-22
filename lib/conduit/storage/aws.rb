@@ -23,9 +23,11 @@ module Conduit
         # IAM will provide them.
         #
         def configure
-          if [:aws_access_key_id, :aws_access_secret].all? { |key| config.has_key?(key) }
-            AWS.config(:access_key_id => config[:aws_access_key_id],
-              :secret_access_key => config[:aws_access_secret])
+          if [:aws_access_key_id, :aws_access_secret].all? { |key| config.key?(key) }
+            AWS.config(
+              access_key_id:     config[:aws_access_key_id],
+              secret_access_key: config[:aws_access_secret]
+            )
           else
             AWS.config
           end
