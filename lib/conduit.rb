@@ -10,7 +10,7 @@ module Conduit
   #
   autoload :Storage,      'conduit/storage'
   autoload :Util,         'conduit/util'
-  autoload :Response,     'conduit/response'
+  autoload :ApiResponse,  'conduit/api_response'
   autoload :TimeOut,      'conduit/time_out'
 
   module Core

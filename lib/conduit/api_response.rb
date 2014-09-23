@@ -1,5 +1,5 @@
 module Conduit
-  class Response
+  class ApiResponse
     attr_reader :body, :parser, :raw_response
 
     def initialize(options = {})

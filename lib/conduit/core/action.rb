@@ -128,7 +128,7 @@ module Conduit
           response = request(body: view, method: :post)
           parser   = parser_class.new(response.body)
 
-          Conduit::Response.new(raw_response: response,
+          Conduit::ApiResponse.new(raw_response: response,
             parser: parser)
         end
 
