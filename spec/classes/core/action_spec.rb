@@ -44,7 +44,7 @@ shared_examples_for Conduit::Core::Action do
       before { Excon.stub({}, body: response, status: 200) }
 
       it 'returns a response wrapper' do
-        subject.perform.should be_a_kind_of(Conduit::Response)
+        subject.perform.should be_a_kind_of(Conduit::ApiResponse)
       end
 
       it 'should return the raw_content' do
