@@ -4,7 +4,7 @@ module Conduit
 
     def initialize(options = {})
       @raw_response = options[:raw_response]
-      @body         = options.fetch(:body, raw_response.body)
+      @body         = options[:body] ||= @raw_response.body
       @parser       = options[:parser]
     end
   end
