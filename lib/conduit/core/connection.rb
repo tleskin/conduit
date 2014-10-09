@@ -51,7 +51,9 @@ module Conduit
           params[:headers]['User-Agent'] ||= "conduit/#{Conduit::VERSION}"
           connection.request(params, &block)
         rescue Excon::Errors::Timeout => timeout
-          raise(Conduit::Errors::Timeout, timeout.message)
+          raise(Conduit::Timeout, timeout.message)
+        rescue Excon::Errors::Error => error
+          raise(Conduit::ConnectionError, error.message)
         end
 
         private
