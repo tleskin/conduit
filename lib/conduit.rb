@@ -8,10 +8,11 @@ module Conduit
   # NOTE: Autoloading should be
   #       concurrency-safe
   #
-  autoload :Storage,      'conduit/storage'
-  autoload :Util,         'conduit/util'
-  autoload :ApiResponse,  'conduit/api_response'
-  autoload :TimeOut,      'conduit/time_out'
+  autoload :Storage,          'conduit/storage'
+  autoload :Util,             'conduit/util'
+  autoload :ApiResponse,      'conduit/api_response'
+  autoload :ConnectionError,  'conduit/connection_error'
+  autoload :TimeOut,          'conduit/time_out'
 
   module Core
 
@@ -19,11 +20,11 @@ module Conduit
     # NOTE: Autoloading should be
     #       concurrency-safe
     #
-    autoload :Connection, 'conduit/core/connection'
-    autoload :Render,     'conduit/core/render'
-    autoload :Action,     'conduit/core/action'
-    autoload :Parser,     'conduit/core/parser'
-    autoload :Driver,     'conduit/core/driver'
+    autoload :Connection,     'conduit/core/connection'
+    autoload :Render,         'conduit/core/render'
+    autoload :Action,         'conduit/core/action'
+    autoload :Parser,         'conduit/core/parser'
+    autoload :Driver,         'conduit/core/driver'
   end
 
   module Driver
