@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    conduit (0.5.3)
+    conduit (0.6.0)
       activesupport
       aws-sdk
       excon
