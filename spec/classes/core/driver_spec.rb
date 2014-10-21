@@ -15,6 +15,24 @@ shared_examples_for Conduit::Core::Driver do
       end
     end
 
+    describe '.permitted_attributes' do
+      it 'returns the union of required and optional attributes' do
+        subject.permitted_attributes.should == %i(subdomain mock).to_set
+      end
+    end
+
+    describe 'required_attributes' do
+      it 'should return only the required attributes' do
+        subject.required_attributes.should eql %i(subdomain).to_set
+      end
+    end
+
+    describe 'optional_attributes' do
+      it 'should return only the optional attributes' do
+        subject.optional_attributes.should eql %i(mock).to_set
+      end
+    end
+
   end
 
 end
