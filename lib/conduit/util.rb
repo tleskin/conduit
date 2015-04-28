@@ -10,7 +10,9 @@ module Conduit
       driver = args.map(&:to_s).map(&:camelize).join('::')
       Conduit::Driver.const_get(driver)
     rescue NameError => error
-      raise NameError("Unable to find driver with arguments: #{args.join ','}. Expected #{error.name} to be implemented")
+      message = "Unable to find driver with arguments: #{args.join ','}. " +
+        "Expected #{error.name} to be implemented"
+      raise NameError(message)
     end
 
   end

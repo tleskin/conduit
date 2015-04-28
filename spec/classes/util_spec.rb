@@ -11,7 +11,7 @@ describe Conduit::Util do
 
     it 'should throw NameError if it driver not found' do
       lambda do
-        driver = Conduit::Util.find_driver(:not_really_there)
+        Conduit::Util.find_driver(:not_really_there)
       end.should raise_error(NameError)
     end
   end
