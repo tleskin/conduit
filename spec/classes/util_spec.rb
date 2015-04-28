@@ -1,9 +1,7 @@
 require 'spec_helper'
 
 describe Conduit::Util do
-
   describe 'find_driver' do
-
     it 'should find MyDriver' do
       driver = Conduit::Util.find_driver(:my_driver)
       driver.should_not be_nil
@@ -15,5 +13,4 @@ describe Conduit::Util do
       end.should raise_error(NameError)
     end
   end
-
 end
