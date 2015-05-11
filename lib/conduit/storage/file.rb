@@ -40,7 +40,7 @@ module Conduit
           full_path = storage_path.join(key)
           FileUtils.mkdir_p(::File.dirname(full_path))
 
-          ::File.open(full_path, 'w') do |f|
+          ::File.open(full_path, 'wb') do |f|
             f.write(content)
           end
         end
