@@ -16,7 +16,7 @@ shared_examples_for Conduit::Core::Parser do
   context 'with an instance' do
     describe '#attributes' do
       it 'returns an array of known attributes' do
-        subject.attributes.should == %i(foo bar baz).to_set
+        subject.attributes.should == [:foo, :bar, :baz].to_set
       end
 
       it 'defines a method for foo' do
