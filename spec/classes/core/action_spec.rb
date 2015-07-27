@@ -40,6 +40,19 @@ shared_examples_for Conduit::Core::Action do
       end
     end
 
+    describe '.new' do
+      it 'should raise an error if any required arguments are not supplied' do
+        expect { described_class.new({}) }.to raise_error(ArgumentError)
+      end
+
+      it 'should raise an error if any required arguments are nil' do
+        options = request_attributes.inject({}) do |h, (k, v)|
+          h.merge(k => nil)
+        end
+        expect { described_class.new(options) }.to raise_error(ArgumentError)
+      end
+    end
+
     describe '#perform' do
       before { Excon.stub({}, body: response, status: 200) }
 

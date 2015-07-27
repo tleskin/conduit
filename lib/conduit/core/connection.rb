@@ -54,6 +54,8 @@ module Conduit
           raise(Conduit::Timeout, timeout.message)
         rescue Excon::Errors::Error => error
           raise(Conduit::ConnectionError, error.message)
+        rescue SocketError => error
+          raise(Conduit::ConnectionError, 'Could not connect to the server.  Please check your internet connection.')
         end
 
         private
