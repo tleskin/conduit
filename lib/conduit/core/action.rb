@@ -13,6 +13,7 @@
 #
 
 require 'active_support/inflector'
+require 'active_support/core_ext/object/blank'
 require 'forwardable'
 require 'ostruct'
 require 'set'
@@ -140,7 +141,7 @@ module Conduit
         #
         def validate!(options)
           !missing_required_keys?(options) &&
-            !required_keys_nil?(options)
+            !required_keys_not_present?(options)
         end
 
         # Raises an Argument error if any required keys
@@ -160,13 +161,13 @@ module Conduit
         # are present in the options hash but have nil values;
         # otherwise returns false
         #
-        def required_keys_nil?(options)
-          blank_required_options = requirements.select do |required_key|
-            options[required_key].nil?
+        def required_keys_not_present?(options)
+          required_options_not_present = requirements.reject do |required_key|
+            options[required_key].present?
           end
-          if blank_required_options.any?
+          if required_options_not_present.any?
             raise ArgumentError,
-              "Nil keys: #{blank_required_options.join(', ')}"
+              "Nil keys: #{required_options_not_present.join(', ')}"
           end
           false
         end

@@ -51,6 +51,20 @@ shared_examples_for Conduit::Core::Action do
         end
         expect { described_class.new(options) }.to raise_error(ArgumentError)
       end
+
+      it 'should raise an error if any of the required arguments are blank' do
+        options = request_attributes.inject({}) do |h, (k, v)|
+          h.merge(k => '')
+        end
+        expect { described_class.new(options) }.to raise_error(ArgumentError)
+      end
+
+      it 'should raise an error if any of the required arguments are empty' do
+        options = request_attributes.inject({}) do |h, (k, v)|
+          h.merge(k => [])
+        end
+        expect { described_class.new(options) }.to raise_error(ArgumentError)
+      end
     end
 
     describe '#perform' do
