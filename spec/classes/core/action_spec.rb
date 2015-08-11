@@ -46,21 +46,21 @@ shared_examples_for Conduit::Core::Action do
       end
 
       it 'should raise an error if any required arguments are nil' do
-        options = request_attributes.inject({}) do |h, (k, v)|
+        options = request_attributes.inject({}) do |h, (k, _v)|
           h.merge(k => nil)
         end
         expect { described_class.new(options) }.to raise_error(ArgumentError)
       end
 
       it 'should raise an error if any of the required arguments are blank' do
-        options = request_attributes.inject({}) do |h, (k, v)|
+        options = request_attributes.inject({}) do |h, (k, _v)|
           h.merge(k => '')
         end
         expect { described_class.new(options) }.to raise_error(ArgumentError)
       end
 
       it 'should raise an error if any of the required arguments are empty' do
-        options = request_attributes.inject({}) do |h, (k, v)|
+        options = request_attributes.inject({}) do |h, (k, _v)|
           h.merge(k => [])
         end
         expect { described_class.new(options) }.to raise_error(ArgumentError)
