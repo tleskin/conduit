@@ -13,6 +13,7 @@
 #
 
 require 'active_support/inflector'
+require 'active_support/core_ext/object/blank'
 require 'forwardable'
 require 'ostruct'
 require 'set'
@@ -139,11 +140,36 @@ module Conduit
         # an ArgumentError listing missing attributes
         #
         def validate!(options)
+          !missing_required_keys?(options) &&
+            !required_keys_not_present?(options)
+        end
+
+        # Raises an Argument error if any required keys
+        # are not present in the options hash; otherwise
+        # returns false
+        #
+        def missing_required_keys?(options)
           missing_keys = (requirements.to_a - options.keys)
           if missing_keys.any?
             raise ArgumentError,
               "Missing keys: #{missing_keys.join(', ')}"
           end
+          false
+        end
+
+        # Raises an Argument error if any required keys
+        # are present in the options hash but have nil values;
+        # otherwise returns false
+        #
+        def required_keys_not_present?(options)
+          required_options_not_present = requirements.reject do |required_key|
+            options[required_key].present?
+          end
+          if required_options_not_present.any?
+            raise ArgumentError,
+              "Nil keys: #{required_options_not_present.join(', ')}"
+          end
+          false
         end
 
         # Returns the parser for this action

@@ -18,7 +18,7 @@ RSpec.configure do |config|
   config.include Helper
 
   config.expect_with :rspec do |c|
-    c.syntax = :should
+    c.syntax = [:should, :expect]
   end
 
   config.before(:suite) do
