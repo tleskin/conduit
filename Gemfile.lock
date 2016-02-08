@@ -65,6 +65,3 @@ DEPENDENCIES
   rspec
   rspec-its
   shoulda-matchers
-
-BUNDLED WITH
-   1.10.5
